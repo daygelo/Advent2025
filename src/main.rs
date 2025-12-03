@@ -1,6 +1,6 @@
-mod day1;
+mod day2;
 
 fn main() {
-    let input = std::fs::read_to_string("src/day1/input.txt").unwrap();
-    println!("{} {}", day1::part_1(&input), day1::part_2(&input));
+    let input = std::fs::read_to_string("src/day2/input.txt").unwrap();
+    println!("{} {}", day2::part_1(&input), day2::part_2(&input));
 }

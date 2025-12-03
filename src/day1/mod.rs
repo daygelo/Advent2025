@@ -31,7 +31,7 @@ pub fn part_2(input: &str) -> i32 {
             password += (100 - point + distance) / 100;
         }
         
-        point = (point + direction * distance).rem_euclid(100); // positive modole necessary
+        point = (point + direction * distance).rem_euclid(100); // positive modulo necessary
     }
 
     password
