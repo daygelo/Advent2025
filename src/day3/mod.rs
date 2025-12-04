@@ -24,29 +24,26 @@ pub fn part_1(input: &str) -> u32 {
 }
 
 pub fn part_2(input: &str) -> u64 {
-    const LENGTH: usize = 12;
     let mut total = 0;
     
     for line in input.lines() {
         let numbers = line.chars().map(|x| x.to_digit(10).unwrap()).collect::<Vec<u32>>();
-        let mut digits = numbers[..LENGTH].to_owned();
-        let mut last_displacement = 0;
+        let mut digits = numbers[..12].to_owned();
+        let mut displacement = 0;
         
         for i in 1..numbers.len() {
-            for j in 0..LENGTH {
-                let numbers_end = i + LENGTH - j;
-                let displacement = i as i32 - j as i32;
-
-                if numbers[i] > digits[j] && i > j && numbers_end - 1 < numbers.len() && displacement >= last_displacement {
-                    digits[j..].copy_from_slice(&numbers[i..numbers_end]);
-                    last_displacement = displacement;
+            for j in 0..digits.len() {
+                let slice_end = i + digits.len() - j;
+                if numbers[i] > digits[j] && i >= j + displacement && slice_end - 1 < numbers.len() {
+                    digits[j..].copy_from_slice(&numbers[i..slice_end]);
+                    displacement = i - j;
                     break;
                 }
             }
         }
         
         for i in 0..digits.len() {
-            total += digits[i] as u64 * 10_u64.pow(11 - i as u32);
+            total += digits[i] as u64 * 10_u64.pow((digits.len() - 1 - i) as u32);
         }
     }
 
